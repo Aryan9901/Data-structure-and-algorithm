@@ -1,0 +1,64 @@
+// program to find the second largest element in an array
+
+#include <iostream>
+using namespace std;
+
+int egetlargest(int arr[], int n)
+{
+    int largest = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] > arr[largest])
+            largest = i;
+    }
+    return largest;
+}
+
+int nSecondLargest(int arr[], int n)
+{
+    int largest = egetlargest(arr, n);
+    int slargest = -1;
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] != arr[largest])
+        {
+            if (slargest == -1)
+                slargest = i;
+            else if (arr[i] > arr[slargest])
+                slargest = i;
+        }
+    }
+    return slargest;
+}
+int eSecondLargest(int arr[], int n)
+{
+    int largest = 0, slargest = -1;
+    for (int i = 1; i < n; i++)
+    {
+        if (arr[i] > arr[largest])
+        {
+            slargest = largest;
+            largest = i;
+        }
+        else if (arr[i] == arr[largest])
+            continue;
+        else
+        {
+            if (slargest == -1)
+                slargest = i;
+            else if (arr[i] < arr[slargest])
+                continue;
+            else
+                slargest = i;
+        }
+    }
+    return slargest;
+}
+
+int main()
+{
+    int arr[12] = {12, 3, 5, 76, 98, 46, 73, 56, 99, 102, 6, 101};
+    cout << "second largest element is: " << arr[nSecondLargest(arr, 12)] << endl;
+    cout << "second largest element is: " << arr[eSecondLargest(arr, 12)] << endl;
+    return 0;
+}
